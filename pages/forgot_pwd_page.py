@@ -26,5 +26,12 @@ class ForgotPwdPage(BasePage):
     @allure.step('Вводим пароль и проверяем скрытие по кнопке')
     def fill_pwd_and_check_visibility(self):
         self.fill_form(ForgotPwdPageLocators.PWD_FIELD, Data.PWD)
+
+    @allure.step('Вводим пароль')
+    def fill_pwd(self):
+        self.fill_form(ForgotPwdPageLocators.PWD_FIELD, Data.PWD)
+
+    @allure.step('Проверяем скрытие по кнопке')
+    def check_visibility(self):
         self.find_element_and_click(ForgotPwdPageLocators.SHOW_PWD_BUTTON)
         self.check_element_is_visible(ForgotPwdPageLocators.PWD_INPUT_ACTIVE)

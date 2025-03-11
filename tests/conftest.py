@@ -4,7 +4,9 @@ from factory import WebDriverFactory
 from pages.login_page import LoginPage
 
 
-@pytest.fixture
+BROWSERS = ["chrome", "firefox"]
+
+@pytest.fixture(params=BROWSERS)
 def driver(request):
     browser_name = request.param
     driver = WebDriverFactory.get_driver(browser_name)

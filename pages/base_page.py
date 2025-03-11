@@ -32,14 +32,14 @@ class BasePage:
         self.driver.execute_script("arguments[0].scrollIntoView();", element)
 
 
-    @allure.title('Находим элемент и кликаем по нему')
+    @allure.step('Находим элемент и кликаем по нему')
     def find_element_and_click(self, locator):
         time.sleep(1)
         element = WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located(locator))
         self.driver.execute_script("arguments[0].scrollIntoView(true);", element)
         element.click()
 
-    @allure.title('Заполняем форму')
+    @allure.step('Заполняем форму')
     def fill_form(self, locator, name):
         self.driver.find_element(*locator).send_keys(name)
 
@@ -61,6 +61,7 @@ class BasePage:
         except TimeoutException:
             assert False, "Элемент все еще видим"
 
+    @allure.step('Drag-and-drop элемента')
     def drag_and_drop_element(self, source_locator, target_locator):
         source_element = WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located(source_locator))
         target_element = WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located(target_locator))
@@ -97,8 +98,10 @@ class BasePage:
             target_element
         )
 
+    @allure.step('Формируем локатор')
     def get_order_number_locator(self, order_id):
         return (By.XPATH, f"//p[text()='#0{order_id}']")
 
+    @allure.step('Формируем локатор')
     def get_order_in_progress_locator(self, order_id):
         return (By.XPATH, f"//ul[contains(@class, 'OrderFeed_orderListReady')]/li[text()='{order_id}']")
